@@ -137,6 +137,7 @@ header {
 /* Comment box */
 .comment-box {
     background: #f9f9f9;
+    color: black;
     padding: 10px;
     margin-top: 10px;
     border-left: 5px solid #4CAF50;
