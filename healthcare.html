@@ -94,52 +94,34 @@
             modalText.textContent = this.alt; 
         });
     });
-
     closeBtn.addEventListener("click", function () {
         modal.style.display = "none";
     });
-
     modal.addEventListener("click", function (e) {
         if (e.target === modal) {
             modal.style.display = "none";
         }
     });
-
     document.getElementById("healthForm").addEventListener("submit", function (event) {
         event.preventDefault(); 
 
         const name = document.getElementById("name").value; 
         const tip = document.getElementById("tip").value; 
-
-
+	    
         if (name.trim() === "" || tip.trim() === "") {
             alert("Please fill your information!");
             return;
         }
-
-  
         const formData = {
             name: name,
             tip: tip
         };
-
-
         let tipsList = JSON.parse(localStorage.getItem("tips")) || [];
-
-
         tipsList.push(formData);
-
-
         localStorage.setItem("tips", JSON.stringify(tipsList));
-
-
         displayComment(formData);
-
-
         document.getElementById("healthForm").reset();
     });
-
-
     function displayComment(data) {
         const commentList = document.getElementById("commentList");
         const newComment = document.createElement("div");
@@ -147,7 +129,6 @@
         newComment.innerHTML = `<strong>${data.name}:</strong> ${data.tip}`;
         commentList.prepend(newComment);
     }
-
     document.addEventListener("DOMContentLoaded", function () {
         let tipsList = JSON.parse(localStorage.getItem("tips")) || [];
         tipsList.forEach(displayComment);
