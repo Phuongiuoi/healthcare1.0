@@ -8,9 +8,8 @@
 </head>
 <body>
     <header>
-        Family Healthcare Tips
+        Family Health Tips
     </header>
-    
     <div class="container">
         <section class="tips">
             <div class="tip">
@@ -49,7 +48,6 @@
                 </div>
             </div>
         </section>
-
         <section class="testimonials">
             <h2>What Families Say ❤️</h2>
             <div class="testimonial">
@@ -72,7 +70,6 @@
 	</section>
     </div>
 <script>
-
     const modal = document.createElement("div");
     modal.className = "modal";
     modal.style.display = "none";
@@ -82,11 +79,9 @@
         <p class="modal-text"></p>
     `;
     document.body.appendChild(modal);
-
     const modalImg = document.getElementById("modalImg");
     const modalText = modal.querySelector(".modal-text");
     const closeBtn = modal.querySelector(".close");
-
     document.querySelectorAll(".tip img").forEach(img => {
         img.addEventListener("click", function () {
             modal.style.display = "flex";
@@ -104,10 +99,8 @@
     });
     document.getElementById("healthForm").addEventListener("submit", function (event) {
         event.preventDefault(); 
-
         const name = document.getElementById("name").value; 
         const tip = document.getElementById("tip").value; 
-	    
         if (name.trim() === "" || tip.trim() === "") {
             alert("Please fill your information!");
             return;
