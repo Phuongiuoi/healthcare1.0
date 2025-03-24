@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Health Tips</title>
+    <link rel="stylesheet" href="healthcare.css">
+</head>
+<body>
+    <header>
+        Family Healthcare Tips
+    </header>
+    
+    <div class="container">
+        <section class="tips">
+            <div class="tip">
+                <img src="C:\Users\User\OneDrive - 中原大學\Máy tính\myfile\Web mới\2.jpg" alt="Healthy Eating">
+                <div>
+                    <h2>1. Healthy Eating</h2>
+                    <p>Eat a balanced diet with fruits, vegetables, whole grains, and proteins.</p>
+                </div>
+            </div>
+            <div class="tip">
+                <img src="C:\Users\User\OneDrive - 中原大學\Máy tính\myfile\Web mới\3.jpg" alt="Exercise Together">
+                <div>
+                    <h2>2. Exercise Together</h2>
+                    <p>Stay active with family activities like biking or playing sports.</p>
+                </div>
+            </div>
+            <div class="tip">
+                <img src="C:\Users\User\OneDrive - 中原大學\Máy tính\myfile\Web mới\4.jpg" alt="Stay Hydrated">
+                <div>
+                    <h2>3. Stay Hydrated</h2>
+                    <p>Drink enough water daily and reduce sugary drinks.</p>
+                </div>
+            </div>
+            <div class="tip">
+                <img src="C:\Users\User\OneDrive - 中原大學\Máy tính\myfile\Web mới\5.jpg" alt="Get Enough Sleep">
+                <div>
+                    <h2>4. Get Enough Sleep</h2>
+                    <p>Ensure your family gets enough sleep for better health and energy.</p>
+                </div>
+            </div>
+            <div class="tip">
+                <img src="C:\Users\User\OneDrive - 中原大學\Máy tính\myfile\Web mới\7.jpg" alt="Check Your Health Regularly">
+                <div>
+                    <h2>5. Check Your Health Regularly</h2>
+                    <p>Routine check-ups help detect issues early and maintain good health.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2>What Families Say ❤️</h2>
+            <div class="testimonial">
+                <p>"Since we started eating healthier, our energy levels have skyrocketed!" – The Johnsons</p>
+            </div>
+            <div class="testimonial">
+                <p>"Family workout time has brought us closer together!" – The Martinez Family</p>
+            </div>
+        </section>
+        <section class="contact">
+    <h2>Share Your Tips! ✨</h2>
+    <form id="healthForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <textarea id="tip" placeholder="Share your family health tip..." required></textarea>
+        <button type="submit">Submit</button>
+    </form>
+    <p id="responseMessage"></p> 
+    <h3>Community Health Tips</h3>
+    <div id="commentList"></div> 
+	</section>
+    </div>
+<script>
+
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.style.display = "none";
+    modal.innerHTML = `
+        <span class="close">&times;</span>
+        <img id="modalImg">
+        <p class="modal-text"></p>
+    `;
+    document.body.appendChild(modal);
+
+    const modalImg = document.getElementById("modalImg");
+    const modalText = modal.querySelector(".modal-text");
+    const closeBtn = modal.querySelector(".close");
+
+    document.querySelectorAll(".tip img").forEach(img => {
+        img.addEventListener("click", function () {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+            modalText.textContent = this.alt; 
+        });
+    });
+
+    closeBtn.addEventListener("click", function () {
+        modal.style.display = "none";
+    });
+
+    modal.addEventListener("click", function (e) {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    document.getElementById("healthForm").addEventListener("submit", function (event) {
+        event.preventDefault(); 
+
+        const name = document.getElementById("name").value; 
+        const tip = document.getElementById("tip").value; 
+
+
+        if (name.trim() === "" || tip.trim() === "") {
+            alert("Please fill your information!");
+            return;
+        }
+
+  
+        const formData = {
+            name: name,
+            tip: tip
+        };
+
+
+        let tipsList = JSON.parse(localStorage.getItem("tips")) || [];
+
+
+        tipsList.push(formData);
+
+
+        localStorage.setItem("tips", JSON.stringify(tipsList));
+
+
+        displayComment(formData);
+
+
+        document.getElementById("healthForm").reset();
+    });
+
+
+    function displayComment(data) {
+        const commentList = document.getElementById("commentList");
+        const newComment = document.createElement("div");
+        newComment.classList.add("comment-box");
+        newComment.innerHTML = `<strong>${data.name}:</strong> ${data.tip}`;
+        commentList.prepend(newComment);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let tipsList = JSON.parse(localStorage.getItem("tips")) || [];
+        tipsList.forEach(displayComment);
+    });
+</script>
+</body>
+</html>
